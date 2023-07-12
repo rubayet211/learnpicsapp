@@ -1,6 +1,8 @@
 // Import flutter helper library
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' show get;
+import 'models/image_model.dart';
+import 'dart:convert';
 
 class App extends StatefulWidget {
   createState() {
@@ -11,11 +13,12 @@ class App extends StatefulWidget {
 class AppState extends State<App> {
   int counter = 0;
 
-  void fetchImage() {
+  void fetchImage() async {
     counter++;
     String urlString = "https://jsonplaceholder.typicode.com/photos/$counter";
     Uri uri = Uri.parse(urlString);
-    get(uri);
+    var resonpse = await get(uri);
+    var imageModel = ImageModel.fromJson(json.decode(resonpse.body));
   }
 
   Widget build(context) {
