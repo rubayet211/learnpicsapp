@@ -12,6 +12,7 @@ class App extends StatefulWidget {
 
 class AppState extends State<App> {
   int counter = 0;
+  List<ImageModel> images = [];
 
   void fetchImage() async {
     counter++;
@@ -19,6 +20,10 @@ class AppState extends State<App> {
     Uri uri = Uri.parse(urlString);
     var resonpse = await get(uri);
     var imageModel = ImageModel.fromJson(json.decode(resonpse.body));
+
+    setState(() {
+      images.add(imageModel);
+    });
   }
 
   Widget build(context) {
